@@ -1,7 +1,6 @@
 provider "azurerm" {
   features {}
 }
-
 resource "azurerm_storage_account" "storage" {
   name                     = var.storage_account_name
   resource_group_name      = var.resource_group_name
@@ -35,5 +34,5 @@ resource "azurerm_mssql_database" "sql_db" {
 resource "azurerm_data_factory" "adf" {
   name                = "adf-devops-pipeline"
   location            = var.location
-  resource_group_name = var.name
+  resource_group_name = var.resource_group_name
 }
