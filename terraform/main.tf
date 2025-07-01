@@ -2,16 +2,10 @@ provider "azurerm" {
   features {}
 }
 
-resource "azurerm_resource_group" "rg" {
-  count    = var.resource_group_name ? 1 : 0
-  name     = "kml_rg_main-8eacbc90a5c14e6b" #modify this to what you have or assign dynamically"
-  location = var.location
-}
-
 resource "azurerm_storage_account" "storage" {
   name                     = var.storage_account_name
-  resource_group_name      = azurerm_resource_group.rg.name
-  location                 = azurerm_resource_group.rg.location
+  resource_group_name      = var.resource_group_name
+  location                 = var.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
 }
@@ -24,8 +18,8 @@ resource "azurerm_storage_container" "container" {
 
 resource "azurerm_mssql_server" "sql_server" {
   name                         = var.sql_server_name
-  resource_group_name          = azurerm_resource_group.rg.name
-  location                     = azurerm_resource_group.rg.location
+  resource_group_name          = var.resource_group_name
+  location                     = var.location
   version                      = "12.0"
   administrator_login          = var.sql_admin_username
   administrator_login_password = var.sql_admin_password
@@ -40,6 +34,6 @@ resource "azurerm_mssql_database" "sql_db" {
 
 resource "azurerm_data_factory" "adf" {
   name                = "adf-devops-pipeline"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
+  location            = var.location
+  resource_group_name = var.name
 }
