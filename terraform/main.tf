@@ -35,11 +35,8 @@ resource "azurerm_mssql_server" "sql_server" {
 resource "azurerm_mssql_database" "sql_db" {
   name                 = var.sql_database_name
   server_id            = azurerm_mssql_server.sql_server.id
-
   sku_name             = "Basic"      # Basic service tier
-
   zone_redundant       = false
-
   max_size_gb          = 2            # Max size for Basic tier
 }
 
