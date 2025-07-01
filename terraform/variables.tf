@@ -1,5 +1,6 @@
 variable "resource_group_name" {
-  default = "devops-data-rg"
+  default = false
+  
 }
 
 variable "location" {
