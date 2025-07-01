@@ -1,0 +1,47 @@
+'''these are basic pipeline syntax for creating the copy activity which will be used in adf service on azure'''
+{
+  "name": "BlobToSqlPipeline",
+  "properties": {
+    "activities": [
+      {
+        "name": "CopyBlobToSQL",
+        "type": "Copy",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "7.00:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "userProperties": [],
+        "typeProperties": {
+          "source": {
+            "type": "DelimitedTextSource",
+            "storeSettings": {
+              "type": "AzureBlobStorageReadSettings"
+            }
+          },
+          "sink": {
+            "type": "SqlSink",
+            "writeBatchSize": 10000,
+            "writeBatchTimeout": "00:00:30"
+          },
+          "enableStaging": false
+        },
+        "inputs": [
+          {
+            "referenceName": "BlobInputDataset",
+            "type": "DatasetReference"
+          }
+        ],
+        "outputs": [
+          {
+            "referenceName": "SqlOutputDataset",
+            "type": "DatasetReference"
+          }
+        ]
+      }
+    ]
+  }
+}
