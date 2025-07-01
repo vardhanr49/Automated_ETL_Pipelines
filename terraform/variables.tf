@@ -7,9 +7,6 @@ variable "location" {
   default = "East US"
 }
 
-variable "storage_account_name" {
-  default = "devopsdatastorage"
-}
 
 variable "container_name" {
   default = "input-data"
