@@ -28,7 +28,7 @@ jobs:
         run: terraform init
 
       - name: Terraform Plan
-        run: terraform plan -var="sql_admin_password=${{ secrets.SQL_ADMIN_PASSWORD }}"
+        run: terraform plan -var="sql_admin_password=${{ secrets.SQL_ADMIN_PASSWORD }}" -var="resource_group_name=false"
 
       - name: Terraform Apply
         run: terraform apply -auto-approve -var="sql_admin_password=${{ secrets.SQL_ADMIN_PASSWORD }}"
