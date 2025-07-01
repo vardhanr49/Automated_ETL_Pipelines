@@ -3,6 +3,10 @@ variable "resource_group_name" {
   
 }
 
+variable "storage_account_name" {
+  default = "devopsdatastorage"
+}
+
 variable "location" {
   default = "East US"
 }
