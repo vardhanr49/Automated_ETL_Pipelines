@@ -3,7 +3,8 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "rg" {
-  name     = var.resource_group_name
+  count    = var.resource_group_name ? 1 : 0
+  name     = "kml_rg_main-8eacbc90a5c14e6b" #modify this to what you have or assign dynamically"
   location = var.location
 }
 
