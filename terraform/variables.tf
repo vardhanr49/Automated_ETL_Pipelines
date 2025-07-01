@@ -1,5 +1,5 @@
 variable "resource_group_name" {
-  default = false
+  default = "kml_rg_main-8eacbc90a5c14e6b"
   
 }
 
