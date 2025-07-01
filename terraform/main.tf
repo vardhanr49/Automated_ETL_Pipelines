@@ -1,4 +1,5 @@
 provider "azurerm" {
+  resource_provider_registrations = "none" 
   features {}
 }
 resource "azurerm_storage_account" "storage" {
