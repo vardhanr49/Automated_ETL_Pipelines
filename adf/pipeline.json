@@ -1,4 +1,4 @@
-'''these are basic pipeline syntax for creating the copy activity which will be used in adf service on azure'''
+"""these are basic pipeline syntax for creating the copy activity which will be used in adf service on azure"""
 {
   "name": "BlobToSqlPipeline",
   "properties": {
