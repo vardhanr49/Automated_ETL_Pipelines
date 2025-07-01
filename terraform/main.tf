@@ -2,8 +2,15 @@ provider "azurerm" {
   resource_provider_registrations = "none" 
   features {}
 }
+resource "random_string" "storage_suffix" {
+  length  = 6
+  upper   = false
+  numeric = true
+  special = false
+}
+
 resource "azurerm_storage_account" "storage" {
-  name                     = var.storage_account_name
+  name                     = lower("${var.storage_account_name}${random_string.storage_suffix.result}")
   resource_group_name      = var.resource_group_name
   location                 = var.location
   account_tier             = "Standard"
@@ -26,11 +33,16 @@ resource "azurerm_mssql_server" "sql_server" {
 }
 
 resource "azurerm_mssql_database" "sql_db" {
-  name           = var.sql_database_name
-  server_id      = azurerm_mssql_server.sql_server.id
-  sku_name       = "Basic"
-  zone_redundant = false
+  name                 = var.sql_database_name
+  server_id            = azurerm_mssql_server.sql_server.id
+
+  sku_name             = "Basic"      # Basic service tier
+
+  zone_redundant       = false
+
+  max_size_gb          = 2            # Max size for Basic tier
 }
+
 
 resource "azurerm_data_factory" "adf" {
   name                = "adf-devops-pipeline"
